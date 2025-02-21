@@ -1,0 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", serif;
+}
+
+body {
+  background-color: #89bf8f;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#todo_card {
+  background-color: white;
+  width: 450px;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+  & #todo_card_header {
+    position: relative;
+    padding: 1em;
+    width: 100%;
+
+    & #todo_input_wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      & ion-icon {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        color: #808080;
+        margin-left: .6em;
+      }
+
+      & #insert_task {
+        padding: .5em;
+        padding-left: calc(0.6em * 4);
+        width: 100%;
+        font-size: 1.2rem;
+        border-radius: 4px;
+        border: 1px solid #808080;
+      }
+
+      & #insert_task:focus {
+        outline: 2px solid #89bf8f;
+        border: 1px solid #89bf8f;
+      }
+    }
+
+    & #todo_card_header_tabs {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1em;
+
+      & #tabs {
+        display: flex;
+        list-style: none;
+
+        & li {
+          margin-right: .8em;
+          cursor: pointer;
+          font-size: .9rem;
+        }
+
+        & li.current {
+          position: relative;
+          color: #89bf8f;
+          font-weight: 500;
+        }
+
+        & li.current::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -2px;
+          width: 100%;
+          height: 2px;
+          background-color: #89bf8f;
+        }
+      }
+
+      & #clear_all {
+        padding: .5em;
+        background-color: #89bf8f;
+        border: none;
+        color: white;
+        font-size: .9rem;
+        font-weight: 500;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color ease-in-out 250ms;
+      }
+
+      & #clear_all:hover,
+      #clear_all:focus {
+        background-color: #89bf8fc4;
+      }
+    }
+  }
+
+  & #todo_card_header::before {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #808080;
+  }
+
+  & #todo_card_content {
+    padding: 1.5em;
+    position: relative;
+
+    & .task {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        padding-bottom: 1em;
+
+        & .task_content {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            text-overflow: ellipsis "[...]";
+
+            & .task_text {
+                margin-left: .5em;
+            }
+
+            & .task_text.striked {
+                text-decoration: line-through;
+            }
+        }
+
+        & .options {
+            position: relative;
+            cursor: pointer;
+
+            & .options_container {
+                position: absolute;
+                left: 20px;
+                top: -5px;
+                background-color: white;
+                border-radius: 5px;
+                padding: .5em 1em;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+                z-index: 3;
+
+                & .options_list {
+                    list-style: none;
+
+                    & li {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: .5em;
+
+                        & ion-icon {
+                            width: 18px;
+                            height: 18px;
+                            margin-right: .3em;
+                        }
+                    }
+                }
+            }
+        } 
+    }
+
+    & .task:not(:first-child) {
+        margin-top: 1em;
+    }
+
+    & .task:last-child::before {
+        width: 0;
+        height: 0;
+    }
+
+    & .task::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #808080;
+    }
+  }
+
+  & #todo_card_content::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #808080;
+  }
+
+  & #todo_card_footer {
+    margin-top: 1em;
+    text-align: center;
+  }
+}
+
+#modal {display: none;}
+
+#modal.active {
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  & #overlay {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.534);
+    overflow: hidden;
+  }
+
+  & #modal_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 2em;
+
+    & #close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+
+      & ion-icon {
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    & #input_wrapper {
+      display: flex;
+      flex-direction: column;
+
+      & #edit_task {
+        padding: .5em;
+      }
+    }
+
+    & #buttons {
+      display: flex;
+      
+      & button {
+        padding: .2em .5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: .5em;
+        margin-top: .5em;
+        color: white;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+
+        & ion-icon {
+          width: 25px;
+          height: 25px;
+        }
+
+      }
+
+      & #yes {
+        background-color:#00FF00;
+      }
+
+      & #no {
+        background-color: #D31717;
+      }
+    }
+  }
+}

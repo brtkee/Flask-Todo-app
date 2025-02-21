@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <section id="todo_card">
+        <header id="todo_card_header">
+            <form id="todo_input_wrapper">
+                <ion-icon name="filter-outline"></ion-icon>
+                <input type="text" id="insert_task" placeholder="Add a new task">
+            </form>
+
+            <div id="todo_card_header_tabs">
+                <ul id="tabs">
+                    <li class="tab_item current" data-filter="all">All</li>
+                    <li class="tab_item" data-filter="pending">Pending</li>
+                    <li class="tab_item" data-filter="completed">Completed</li>
+                </ul>
+
+                <button id="clear_all">Clear All</button>
+            </div>
+        </header>
+
+        <section id="todo_card_content">
+            {% for task in tasks %}
+                <div class="task" task-id="{{ task['_id'] }}" task-done="{{ task['taskDone'] }}">
+                    <div class="task_content">
+                        <input type="checkbox" class="complete_task">
+
+                        <p class="task_text">
+                            {{ task['taskContent'] }}
+                        </p>
+                    </div>
+
+                    <span class="options">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </span>
+                </div>
+            {% endfor %}
+        </section>
+
+        <footer id="todo_card_footer">
+            &copy;TodoApp.com
+        </footer>
+    </section>
+
+    <section id="modal">
+    </section>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}" type="module"></script>
+</body>
+</html>
