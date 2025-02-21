@@ -30,7 +30,7 @@ pip install -r requirements.txt
 ```
 
 #### Environment variables:
-Create .env file with following variables:
+Create .env file in the app directory with following variables:
 ```
 DEBUG_MODE = False # Set to True for development.
 DB_PASSWORD = 'your_mongodb_password'
