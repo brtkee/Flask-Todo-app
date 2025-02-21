@@ -10,7 +10,7 @@ Simple Flask todo app using Flask, Pymongo and Mongodb database.
 ```
 mkdir project
 cd project
-git clone <repo_url> .
+git clone <https://github.com/brtkee/Flask-Todo-app.git> .
 python -m venv env
 ```
 
